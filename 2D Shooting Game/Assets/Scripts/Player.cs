@@ -11,9 +11,11 @@ public class Player : MonoBehaviour
 
   public Transform shottingOffset;
 
+  private Animator playerAnimator;
   private void Start()
   {
     Enemy.OnEnemyDied += EnemyOnOnEnemyDied;
+    playerAnimator = GetComponent<Animator>();
   }
 
   void EnemyOnOnEnemyDied(int points)
@@ -31,11 +33,10 @@ public class Player : MonoBehaviour
     {
       if (Input.GetKeyDown(KeyCode.Space))
       {
+        playerAnimator.SetTrigger("Shoot");
+        
         GameObject shot = Instantiate(bulletPrefab, shottingOffset.position, Quaternion.identity);
         Debug.Log("Bang!");
-
-        // Destroy(shot, 3f);
-
       }
     }
 }
