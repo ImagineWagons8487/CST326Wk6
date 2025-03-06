@@ -2,10 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
+  public delegate void playerDied();
+
+  public static event playerDied OnPlayerDied;
   [FormerlySerializedAs("bullet")] 
   public GameObject bulletPrefab;
 
@@ -20,7 +24,7 @@ public class Player : MonoBehaviour
 
   void EnemyOnOnEnemyDied(int points)
   {
-    Debug.Log($"Enemy Died!!! For {points}");
+    // Debug.Log($"Enemy Died!!! For {points}");
   }
 
   private void OnDestroy()
@@ -36,7 +40,28 @@ public class Player : MonoBehaviour
         playerAnimator.SetTrigger("Shoot");
         
         GameObject shot = Instantiate(bulletPrefab, shottingOffset.position, Quaternion.identity);
-        Debug.Log("Bang!");
       }
+
+      if (Input.GetKey(KeyCode.LeftArrow))
+      {
+        Vector3 pos = transform.position;
+        float newX = pos.x - 2 * Time.deltaTime;
+        transform.position = new Vector3(newX, pos.y, pos.z);
+      }
+      if (Input.GetKey(KeyCode.RightArrow))
+      {
+        Vector3 pos = transform.position;
+        float newX = pos.x + 2 * Time.deltaTime;
+        transform.position = new Vector3(newX, pos.y, pos.z);
+      }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+      Debug.Log("Player died");
+      OnPlayerDied?.Invoke();
+      Destroy(other.gameObject);
+      Destroy(gameObject);
+      SceneManager.LoadScene("DemoScene");
     }
 }

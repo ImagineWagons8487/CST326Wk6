@@ -13,12 +13,17 @@ public class Bullet : MonoBehaviour
     {
       myRigidbody2D = GetComponent<Rigidbody2D>();
       Fire();
+      StartCoroutine(waitThenDestroy());
     }
 
     // Update is called once per frame
     private void Fire()
     {
-      myRigidbody2D.linearVelocity = Vector2.up * speed; 
-      Debug.Log("Wwweeeeee");
+      myRigidbody2D.linearVelocity = Vector2.up * speed;
+    }
+    IEnumerator waitThenDestroy()
+    {
+      yield return new WaitForSeconds(3);
+      Destroy(gameObject);
     }
 }

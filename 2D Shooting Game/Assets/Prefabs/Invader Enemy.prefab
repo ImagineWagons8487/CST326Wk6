@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3718250653340773977}
   - component: {fileID: 4589065971150885776}
   - component: {fileID: 2965439743303055271}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Invader Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 10
+  bulletPrefab: {fileID: 0}
 --- !u!212 &4589065971150885776
 SpriteRenderer:
   m_ObjectHideFlags: 0
