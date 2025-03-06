@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
+    public int points = 10;
     //delegate is not declaring a function, is declaring a type
     public delegate void EnemyDied(int points);
 
@@ -40,6 +42,6 @@ public class Enemy : MonoBehaviour
       // if (OnEnemyDied != null)
       //     OnEnemyDied.Invoke();
       //same thing ^-v
-      OnEnemyDied?.Invoke(3);
+      OnEnemyDied?.Invoke(points);
     }
 }
