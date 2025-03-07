@@ -7,11 +7,6 @@ public class UFOScript : MonoBehaviour
     public float moveAmount;
 
     public bool leftSpawned;
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> e451b9da3db0dff3b749a8de07991b73b8b09f22
     public delegate void UFODied(int points);
 
     public static event UFODied OnUFODied;
@@ -72,9 +67,5 @@ public class UFOScript : MonoBehaviour
         OnUFODied?.Invoke(points);
         Destroy(other.gameObject);
         Destroy(gameObject);
-<<<<<<< HEAD
-}
-=======
     }
->>>>>>> e451b9da3db0dff3b749a8de07991b73b8b09f22
 }

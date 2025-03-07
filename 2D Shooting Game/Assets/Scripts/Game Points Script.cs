@@ -26,10 +26,18 @@ public class GamePointsScript : MonoBehaviour
         filePath = Application.dataPath + "/HiScore.txt";
         highScore = int.Parse(File.ReadAllLines(filePath)[0]);
     }
+    void Update()
+    {
+        if (enemiesDead == 50)
+        {
+            UpdateHighScore();
+            SceneManager.LoadScene("CreditsScene");
+        }
+    }
+
 
     private void UFOOnOnUFODied(int points)
     {
-<<<<<<< HEAD
         currentScore += points;
         string s = currentScore.ToString();
         while (s.Length < 4)
@@ -39,25 +47,13 @@ public class GamePointsScript : MonoBehaviour
 
         text.text = "SCORE\n" + s;
     }
-=======
-        EnemyOnOnEnemyDied(points);
-    }
 
->>>>>>> e451b9da3db0dff3b749a8de07991b73b8b09f22
     private void PlayerOnOnPlayerDied()
     {
         UpdateHighScore();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (enemiesDead == 50)
-        {
-            UpdateHighScore();
-            SceneManager.LoadScene("CreditsScene");
-        }
-    }
     void EnemyOnOnEnemyDied(int points)
     {
         ++enemiesDead;
@@ -88,26 +84,5 @@ public class GamePointsScript : MonoBehaviour
             }
         }
     }
-
-<<<<<<< HEAD
-=======
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    void EnemyOnOnEnemyDied(int points)
-    {
-        currentScore += points;
-        string s = currentScore.ToString();
-        while (s.Length < 4)
-        {
-            s = "0" + s;
-        }
-
-        text.text = "SCORE\n" + s;
-    }
     
-
->>>>>>> e451b9da3db0dff3b749a8de07991b73b8b09f22
 }
