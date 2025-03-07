@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
   [FormerlySerializedAs("bullet")] 
   public GameObject bulletPrefab;
 
+  public int speed;
+
   public Transform shottingOffset;
 
   private Animator playerAnimator;
@@ -45,13 +47,13 @@ public class Player : MonoBehaviour
       if (Input.GetKey(KeyCode.LeftArrow))
       {
         Vector3 pos = transform.position;
-        float newX = pos.x - 2 * Time.deltaTime;
+        float newX = pos.x - speed * Time.deltaTime;
         transform.position = new Vector3(newX, pos.y, pos.z);
       }
       if (Input.GetKey(KeyCode.RightArrow))
       {
         Vector3 pos = transform.position;
-        float newX = pos.x + 2 * Time.deltaTime;
+        float newX = pos.x + speed * Time.deltaTime;
         transform.position = new Vector3(newX, pos.y, pos.z);
       }
     }

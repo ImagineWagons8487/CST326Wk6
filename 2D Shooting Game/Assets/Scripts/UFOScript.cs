@@ -7,6 +7,10 @@ public class UFOScript : MonoBehaviour
     public float moveAmount;
 
     public bool leftSpawned;
+
+    public delegate void UFODied(int points);
+
+    public static event UFODied OnUFODied;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -44,6 +48,25 @@ public class UFOScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        
-    }
+        Random rand = new Random();
+        int points;
+        switch (rand.Next() % 3)
+        {
+            case 0:
+                points = 150;
+                break;
+            case 1:
+                points = 200;
+                break;
+            case 2:
+                points = 350;
+                break;
+            default:
+                points = 150;
+                break;
+        }
+        OnUFODied?.Invoke(points);
+        Destroy(other.gameObject);
+        Destroy(gameObject);
+}
 }

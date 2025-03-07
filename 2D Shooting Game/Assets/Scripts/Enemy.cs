@@ -17,14 +17,14 @@ public class Enemy : MonoBehaviour
 
     private Animator enemyAnimator;
 
-    private bool dead;
+    // private bool dead;
 
     private System.Random rand;
     // Start is called before the first frame update
     private void Start()
     {
         rand = new Random();
-        dead = false;
+        // dead = false;
         enemyAnimator = GetComponent<Animator>();
         StartCoroutine(shoot());
     }
@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
       Destroy(collision.gameObject);
-      dead = true;
+      // dead = true;
       Destroy(gameObject);
       //would call a function out to anyone who needs it, a signal? If no one signs up, it's null
       // OnEnemyDied.Invoke();
