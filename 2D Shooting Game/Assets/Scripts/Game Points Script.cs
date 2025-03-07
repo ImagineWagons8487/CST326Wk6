@@ -15,10 +15,16 @@ public class GamePointsScript : MonoBehaviour
     void Start()
     {
         Enemy.OnEnemyDied += EnemyOnOnEnemyDied;
+        UFOScript.OnUFODied += UFOOnOnUFODied;
         Player.OnPlayerDied += PlayerOnOnPlayerDied;
         currentScore = 0;
         filePath = Application.dataPath + "/HiScore.txt";
         highScore = int.Parse(File.ReadAllLines(filePath)[0]);
+    }
+
+    private void UFOOnOnUFODied(int points)
+    {
+        EnemyOnOnEnemyDied(points);
     }
 
     private void PlayerOnOnPlayerDied()
@@ -55,5 +61,6 @@ public class GamePointsScript : MonoBehaviour
 
         text.text = "SCORE\n" + s;
     }
+    
 
 }

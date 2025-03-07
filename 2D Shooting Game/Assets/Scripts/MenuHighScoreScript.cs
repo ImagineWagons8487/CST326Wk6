@@ -12,11 +12,15 @@ public class MenuHighScoreScript : MonoBehaviour
     {
         filePath = Application.dataPath + "/HiScore.txt";
         string s = File.ReadAllText(filePath);
+        for (int i = 0; i < s.Length; ++i)
+        {
+            Debug.Log($"\"{s[i]}\"");
+        }
         while (s.Length < 4)
         {
-            s = "0" + s;
+            s = '0' + s;
+            Debug.Log(s);
         }
-
         text.text = "HI-SCORE\n" + s;
     }
 
