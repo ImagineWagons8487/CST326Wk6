@@ -22,7 +22,7 @@ public class UFOSpawnScript : MonoBehaviour
     {
         while (true)
         {
-            float waitTime = (float)rand.NextDouble() * 5 + 5f;
+            float waitTime = (float)rand.NextDouble() * 5 + 10f;
             Debug.Log(waitTime);
             yield return new WaitForSeconds(waitTime);
             bool left = rand.Next() % 2 == 0;

@@ -19,6 +19,7 @@ public class GamePointsScript : MonoBehaviour
     {
         enemiesDead = 0;
         Enemy.OnEnemyDied += EnemyOnOnEnemyDied;
+        UFOScript.OnUFODied += UFOOnOnUFODied;
         Player.OnPlayerDied += PlayerOnOnPlayerDied;
         UFOScript.OnUFODied += UFOOnOnUFODied;
         currentScore = 0;
@@ -28,6 +29,7 @@ public class GamePointsScript : MonoBehaviour
 
     private void UFOOnOnUFODied(int points)
     {
+<<<<<<< HEAD
         currentScore += points;
         string s = currentScore.ToString();
         while (s.Length < 4)
@@ -37,6 +39,11 @@ public class GamePointsScript : MonoBehaviour
 
         text.text = "SCORE\n" + s;
     }
+=======
+        EnemyOnOnEnemyDied(points);
+    }
+
+>>>>>>> e451b9da3db0dff3b749a8de07991b73b8b09f22
     private void PlayerOnOnPlayerDied()
     {
         UpdateHighScore();
@@ -82,4 +89,25 @@ public class GamePointsScript : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
+=======
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    void EnemyOnOnEnemyDied(int points)
+    {
+        currentScore += points;
+        string s = currentScore.ToString();
+        while (s.Length < 4)
+        {
+            s = "0" + s;
+        }
+
+        text.text = "SCORE\n" + s;
+    }
+    
+
+>>>>>>> e451b9da3db0dff3b749a8de07991b73b8b09f22
 }

@@ -64,6 +64,6 @@ public class Player : MonoBehaviour
       OnPlayerDied?.Invoke();
       Destroy(other.gameObject);
       Destroy(gameObject);
-      SceneManager.LoadScene("DemoScene");
+      SceneManager.LoadScene("CreditsScene");
     }
 }
