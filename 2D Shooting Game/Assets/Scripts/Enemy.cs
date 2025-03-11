@@ -17,43 +17,53 @@ public class Enemy : MonoBehaviour
 
     private Animator enemyAnimator;
 
-    // private bool dead;
+    private bool dead;
 
     private System.Random rand;
     // Start is called before the first frame update
     private void Start()
     {
         rand = new Random();
-        // dead = false;
-        enemyAnimator = GetComponent<Animator>();
+        dead = false;
+        enemyAnimator = gameObject.GetComponent<Animator>();
         StartCoroutine(shoot());
     }
 
     private void Update()
     {
-        // enemyAnimator.SetBool("Dead", dead);
-        // if (GetComponent<SpriteRenderer>().sprite.name == "0")
-        // {
-        //     Destroy(gameObject);
-        // }
+        enemyAnimator.SetBool("Dead", dead);
+        if (dead)
+        {
+            StartCoroutine(waitThenDie());
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-      Destroy(collision.gameObject);
-      // dead = true;
-      Destroy(gameObject);
-      //would call a function out to anyone who needs it, a signal? If no one signs up, it's null
-      // OnEnemyDied.Invoke();
-      // if (OnEnemyDied != null)
-      //     OnEnemyDied.Invoke();
-      //same thing ^-v
-      OnEnemyDied?.Invoke(points);
+        if (!dead)
+        {
+            Destroy(collision.gameObject);
+            Destroy(GetComponent<BoxCollider2D>());
+            dead = true;
+        }
+        // Destroy(gameObject);
+        //would call a function out to anyone who needs it, a signal? If no one signs up, it's null
+        // OnEnemyDied.Invoke();
+        // if (OnEnemyDied != null)
+        //     OnEnemyDied.Invoke();
+        //same thing ^-v
+        OnEnemyDied?.Invoke(points);
     }
 
     IEnumerator waiter()
     {
         yield return new WaitForSeconds(1f);
+    }
+
+    IEnumerator waitThenDie()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
     IEnumerator shoot()
     {
