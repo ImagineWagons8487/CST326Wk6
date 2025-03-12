@@ -15,7 +15,10 @@ public class Enemy : MonoBehaviour
 
     public static event EnemyDied OnEnemyDied;
 
+    public AudioClip shootSound, dieSound;
+
     private Animator enemyAnimator;
+    private AudioSource audioSource;
 
     private bool dead;
 
@@ -26,16 +29,13 @@ public class Enemy : MonoBehaviour
         rand = new Random();
         dead = false;
         enemyAnimator = gameObject.GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(shoot());
     }
 
     private void Update()
     {
         enemyAnimator.SetBool("Dead", dead);
-        if (dead)
-        {
-            StartCoroutine(waitThenDie());
-        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(GetComponent<BoxCollider2D>());
             dead = true;
+            StartCoroutine(WaitThenDie());
         }
         // Destroy(gameObject);
         //would call a function out to anyone who needs it, a signal? If no one signs up, it's null
@@ -60,8 +61,9 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(1f);
     }
 
-    IEnumerator waitThenDie()
+    IEnumerator WaitThenDie()
     {
+        PlaySound(dieSound);
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
@@ -73,5 +75,11 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(randTime);
             Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         }
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }
