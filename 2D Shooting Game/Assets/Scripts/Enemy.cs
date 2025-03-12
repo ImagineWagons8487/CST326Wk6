@@ -73,6 +73,8 @@ public class Enemy : MonoBehaviour
         {
             float randTime = (float)rand.NextDouble()*100;
             yield return new WaitForSeconds(randTime);
+            enemyAnimator.SetTrigger("Shoot");
+            PlaySound(shootSound);
             Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         }
     }

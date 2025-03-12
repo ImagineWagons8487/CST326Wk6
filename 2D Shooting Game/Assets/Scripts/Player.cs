@@ -85,12 +85,12 @@ public class Player : MonoBehaviour
     {
       dead = true;
       Destroy(other.gameObject);
+      PlaySound(dieSound);
       StartCoroutine(WaitThenDie());
     }
     
     IEnumerator WaitThenDie()
     {
-      PlaySound(dieSound);
       yield return new WaitForSeconds(2f);
       OnPlayerDied?.Invoke();
       Destroy(gameObject);

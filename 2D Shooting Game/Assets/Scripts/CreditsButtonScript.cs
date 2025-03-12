@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CreditsButtonScript : MonoBehaviour
 {
@@ -12,5 +13,10 @@ public class CreditsButtonScript : MonoBehaviour
     void Update()
     {
         
+    }
+    
+    public void GoToCredits()
+    {
+        SceneManager.LoadScene("CreditsScene");
     }
 }

@@ -1,15 +1,19 @@
 using System;
+using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class RBarrierScript : MonoBehaviour
 {
-    public Sprite damaged;
+    private AudioSource audioSource;
+    public Sprite damaged, gone;
     private int health;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         health = 2;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -22,6 +26,7 @@ public class RBarrierScript : MonoBehaviour
     {
         health--;
         Destroy(other.gameObject);
+        audioSource.Play();
         if (health == 1)
         {
             GetComponent<SpriteRenderer>().sprite = damaged;
@@ -31,7 +36,15 @@ public class RBarrierScript : MonoBehaviour
         }
         else if (health == 0)
         {
-            Destroy(gameObject);
+            StartCoroutine(WaitThenDestroy());
         }
+    }
+
+    IEnumerator WaitThenDestroy()
+    {
+        GetComponent<SpriteRenderer>().sprite = gone;
+        Destroy(GetComponent<BoxCollider2D>());
+        yield return new WaitForSeconds(1.0f);
+        Destroy(gameObject);
     }
 }
